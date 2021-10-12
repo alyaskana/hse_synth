@@ -1,0 +1,18 @@
+.note {
+  justify-content: center;
+  align-items: center;
+  display: inline-flex;
+  margin: 5px;
+  box-sizing: border-box;
+  cursor: pointer;
+  &.big {
+    height: 100px;
+    width: 50px;
+    background-color: rgb(145, 145, 145);
+  }
+  &.small {
+    height: 70px;
+    width: 30px;
+    background-color: lightgray;
+  }
+}

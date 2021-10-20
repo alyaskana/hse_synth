@@ -1,19 +1,19 @@
 import * as Tone from "tone";
 
-export const melodySynth = new Tone.Synth({
+export const melodySynth = new Tone.MembraneSynth({
+  pitchDecay: 0.001,
+  octaves: 10,
+  oscillator: {
+    type: "fatsine"
+  },
   envelope: {
     attack: 0.005,
-    decay: 0.1,
-    sustain: 0.3,
-    release: 1,
-  },
+    decay: 0.6,
+    sustain: 0.5,
+    release: 1.4,
+    attackCurve: "exponential"
+  }
 }).toDestination();
-
-melodySynth.set({
-  oscillator: {
-    type: "triangle",
-  },
-});
 
 export const melodyNotes = [
   "C4",

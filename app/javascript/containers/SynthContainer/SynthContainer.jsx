@@ -1,15 +1,16 @@
 import React, { useState, useLayoutEffect } from "react";
 import * as Tone from "tone";
 
-import { PlayBtn } from "../../components/ui/PlayBtn";
 import { Synth } from "../../components/Synth";
 import { melodySynth, melodyNotes } from "../../tunes/melodySynth";
 import { drumSampler, drumNotes } from "../../tunes/drumSampler";
 import s from "./SynthContainer.module.scss";
+import { PlayBtn } from "../../components/ui/PlayBtn";
+import { RandomBtn } from "../../components/ui/RandomBtn";
 
 const NOTES_COUNT = 12;
 const DRUM_NOTES_COUNT = 4;
-const COL_PER_MEASURE_COUNT = 4;
+const COLUMNS_COUNT = 32;
 
 const setup = () => {
   Tone.start();
@@ -24,16 +25,23 @@ const buildSequence = (notesCount, columnsCount) => {
   return sequence;
 };
 
+const randomSequence = (sequence, rowCount, columnsCount) => {
+  for (let columnIndex = 0; columnIndex < columnsCount; columnIndex++) {
+    for (let rowIndex = 0; rowIndex < rowCount; rowIndex++) {
+      sequence[columnIndex][rowIndex] = Math.random() < 0.1;
+    }
+  }
+};
+
 export const SynthContainer = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentColumn, setCurrentColumn] = useState();
-  const [measureCount] = useState(COL_PER_MEASURE_COUNT * 4);
 
   const [melodySequence, setMelodySequence] = useState(
-    buildSequence(NOTES_COUNT, measureCount)
+    buildSequence(NOTES_COUNT, COLUMNS_COUNT)
   );
   const [drumSequence, setDrumSequence] = useState(
-    buildSequence(DRUM_NOTES_COUNT, measureCount)
+    buildSequence(DRUM_NOTES_COUNT, COLUMNS_COUNT)
   );
 
   useLayoutEffect(() => {
@@ -42,7 +50,7 @@ export const SynthContainer = () => {
     let index = 0;
 
     const repeat = (time) => {
-      let step = index % measureCount;
+      let step = index % COLUMNS_COUNT;
       setCurrentColumn(step);
 
       melodySequence[step].forEach((value, index) => {
@@ -72,9 +80,25 @@ export const SynthContainer = () => {
     setIsPlaying(!isPlaying);
   };
 
+  const handleRandom = () => {
+    setMelodySequence((prevSequence) => {
+      const newSequence = [...prevSequence];
+      randomSequence(newSequence, NOTES_COUNT, COLUMNS_COUNT);
+      return newSequence;
+    });
+    setDrumSequence((prevSequence) => {
+      const newSequence = [...prevSequence];
+      randomSequence(newSequence, DRUM_NOTES_COUNT, COLUMNS_COUNT);
+      return newSequence;
+    });
+  };
+
   return (
     <div className={s.page_wrapper}>
-      <PlayBtn active={isPlaying} onClick={handlePlay} />
+      <div className={s.button_set}>
+        <PlayBtn active={isPlaying} onClick={handlePlay} />
+        <RandomBtn onClick={handleRandom} />
+      </div>
       <Synth
         sequence={melodySequence}
         setSequence={setMelodySequence}

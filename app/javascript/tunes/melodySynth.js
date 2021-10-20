@@ -1,25 +1,19 @@
 import * as Tone from "tone";
 
 export const melodySynth = new Tone.Synth({
-  volume: 0.8,
-  detune: 0,
-  portamento: 0.05,
   envelope: {
-    attack: 0.05,
-    attackCurve: 'exponential',
-    decay: 0.75,
-    decayCurve: 'exponential',
-    sustain: 0.75,
-    release: 0.95,
-    releaseCurve: 'exponential'
+    attack: 0.005,
+    decay: 0.1,
+    sustain: 0.3,
+    release: 1,
   },
+}).toDestination();
+
+melodySynth.set({
   oscillator: {
-    type: 'fatsine',
-    modulationType: 'sine',
-    phase: 0,
-    harmonicity: 0.5
-  }
-}).toDestination()
+    type: "triangle",
+  },
+});
 
 export const melodyNotes = [
   "C4",

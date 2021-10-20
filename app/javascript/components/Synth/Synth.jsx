@@ -17,7 +17,6 @@ export const Synth = ({ sequence, setSequence, currentColumn }) => {
           />
         ))}
       </div>
-      <div className={s.drum_grid}></div>
     </div>
   );
 };

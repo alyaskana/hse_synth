@@ -7,12 +7,11 @@
   background: #ff8d8d;
   box-shadow: 0px 0px 3px 2px #ff8888;
 
+  &.is_playing {
+    box-shadow: 0px 0px 3px 2px #ffffff;
+  }
   &.active {
     background: #d5aef3;
-    box-shadow: 0px 0px 3px 2px #d2acef;
-  }
-  &.is_playing {
-    background: #fff;
-    box-shadow: 0px 0px 3px 2px #d2acef;
+    box-shadow: 0px 0px 3px 2px #fff;
   }
 }

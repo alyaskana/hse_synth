@@ -3,7 +3,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Note } from "../Note";
 
-export const Column = ({ column, colIndex, setSequence }) => {
+export const Column = ({ column, colIndex, setSequence, isPlaying }) => {
   return (
     <div>
       {column.map((note, rowIndex) => (
@@ -13,6 +13,7 @@ export const Column = ({ column, colIndex, setSequence }) => {
           rowIndex={rowIndex}
           key={`${colIndex}-${rowIndex}`}
           setSequence={setSequence}
+          isPlaying={isPlaying}
         />
       ))}
     </div>
@@ -23,4 +24,5 @@ Column.propTypes = {
   column: PropTypes.arrayOf(PropTypes.bool),
   colIndex: PropTypes.number,
   setSequence: PropTypes.func,
+  isPlaying: PropTypes.bool,
 };

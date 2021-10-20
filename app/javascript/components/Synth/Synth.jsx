@@ -1,13 +1,11 @@
 import React from "react";
 import s from "./Synth.module.scss";
 import PropTypes from "prop-types";
-import { PlayBtn } from "../ui/PlayBtn";
 import { Column } from "../Column";
 
-export const Synth = ({ sequence, setSequence }) => {
+export const Synth = ({ sequence, setSequence, currentColumn }) => {
   return (
     <div className={s.wrapper}>
-      <PlayBtn active />
       <div className={s.note_grid}>
         {sequence.map((column, index) => (
           <Column
@@ -15,6 +13,7 @@ export const Synth = ({ sequence, setSequence }) => {
             key={index}
             colIndex={index}
             setSequence={setSequence}
+            isPlaying={currentColumn == index}
           />
         ))}
       </div>
@@ -26,4 +25,5 @@ export const Synth = ({ sequence, setSequence }) => {
 Synth.propTypes = {
   sequence: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.bool)),
   setSequence: PropTypes.func,
+  currentColumn: PropTypes.number,
 };

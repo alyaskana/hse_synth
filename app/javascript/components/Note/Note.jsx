@@ -3,7 +3,7 @@ import cn from "classnames";
 import s from "./Note.module.scss";
 import PropTypes from "prop-types";
 
-export const Note = ({ value, colIndex, rowIndex, setSequence }) => {
+export const Note = ({ value, colIndex, rowIndex, setSequence, isPlaying }) => {
   const handleClick = () => {
     setSequence((prevSequence) => {
       const newSequence = [...prevSequence];
@@ -13,7 +13,10 @@ export const Note = ({ value, colIndex, rowIndex, setSequence }) => {
   };
 
   return (
-    <div className={cn(s.note, { [s.active]: value })} onClick={handleClick} />
+    <div
+      className={cn(s.note, { [s.active]: value, [s.is_playing]: isPlaying })}
+      onClick={handleClick}
+    />
   );
 };
 
@@ -22,4 +25,5 @@ Note.propTypes = {
   colIndex: PropTypes.number,
   rowIndex: PropTypes.number,
   setSequence: PropTypes.func,
+  isPlaying: PropTypes.bool,
 };

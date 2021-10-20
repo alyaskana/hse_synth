@@ -4,9 +4,9 @@ import PropTypes from "prop-types";
 
 import s from "./PlayBtn.module.scss";
 
-export const PlayBtn = ({ active = false }) => {
+export const PlayBtn = ({ active = false, onClick }) => {
   return (
-    <div className={cn(s.button, active ? s.pause : s.play)}>
+    <div className={cn(s.button, active ? s.pause : s.play)} onClick={onClick}>
       <div className={s.button_icon}></div>
     </div>
   );
@@ -14,4 +14,5 @@ export const PlayBtn = ({ active = false }) => {
 
 PlayBtn.propTypes = {
   active: PropTypes.bool,
+  onClick: PropTypes.func,
 };

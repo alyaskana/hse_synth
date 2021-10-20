@@ -3,15 +3,24 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Note } from "../Note";
 
-export const Column = ({ notesCount, col }) => {
-  const notes = [];
-  for (var i = 0; i < notesCount; i++) {
-    notes.push(<Note col={col} row={i} key={i} />);
-  }
-  return <div>{notes}</div>;
+export const Column = ({ column, colIndex, setSequence }) => {
+  return (
+    <div>
+      {column.map((note, rowIndex) => (
+        <Note
+          value={note}
+          colIndex={colIndex}
+          rowIndex={rowIndex}
+          key={`${colIndex}-${rowIndex}`}
+          setSequence={setSequence}
+        />
+      ))}
+    </div>
+  );
 };
 
 Column.propTypes = {
-  notesCount: PropTypes.number,
-  col: PropTypes.number,
+  column: PropTypes.arrayOf(PropTypes.bool),
+  colIndex: PropTypes.number,
+  setSequence: PropTypes.func,
 };

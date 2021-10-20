@@ -1,16 +1,25 @@
 import React from "react";
+import cn from "classnames";
 import s from "./Note.module.scss";
 import PropTypes from "prop-types";
 
-export const Note = ({ row, col }) => {
+export const Note = ({ value, colIndex, rowIndex, setSequence }) => {
+  const handleClick = () => {
+    setSequence((prevSequence) => {
+      const newSequence = [...prevSequence];
+      newSequence[colIndex][rowIndex] = !value;
+      return newSequence;
+    });
+  };
+
   return (
-    <div className={s.note_item}>
-      {row}-{col}
-    </div>
+    <div className={cn(s.note, { [s.active]: value })} onClick={handleClick} />
   );
 };
 
 Note.propTypes = {
-  row: PropTypes.number,
-  col: PropTypes.number,
+  value: PropTypes.bool,
+  colIndex: PropTypes.number,
+  rowIndex: PropTypes.number,
+  setSequence: PropTypes.func,
 };

@@ -1,4 +1,4 @@
-.note_item {
+.note {
   cursor: pointer;
   height: 24px;
   width: 24px;
@@ -6,4 +6,9 @@
   border-radius: 100%;
   background: #ff8d8d;
   box-shadow: 0px 0px 3px 2px #ff8888;
+
+  &.active {
+    background: #d5aef3;
+    box-shadow: 0px 0px 3px 2px #d2acef;
+  }
 }

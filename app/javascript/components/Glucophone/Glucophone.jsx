@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from "react";
+import React from "react";
 import s from "./Glucophone.module.scss";
 import * as Tone from "tone";
 
@@ -7,7 +7,7 @@ const synth = new Tone.PolySynth({
     attack: 0.5,
     decay: 0,
     sustain: 0.3,
-    release: 0,
+    release: 1,
   },
 }).toDestination();
 
@@ -17,19 +17,18 @@ synth.set({
   },
 });
 
-var pattern = new Tone.Pattern(
-  function (time, note) {
-    sampler.triggerAttackRelease(note, "1m");
-  },
-  ["C4", "D4", "E4", "A3"],
-  "upDown"
-);
+// var pattern = new Tone.Pattern(
+//   function (time, note) {
+//     sampler.triggerAttackRelease(note, "1m");
+//   },
+//   ["C4", "D4", "E4", "A3"],
+//   "upDown"
+// );
 
-pattern.loop = true;
-pattern.interval = "4n";
+// pattern.loop = true;
+// pattern.interval = "4n";
 
 const setup = async () => {
-  Tone.context.resume();
   await Tone.start();
   Tone.Transport.start();
   // pattern.start(0);
@@ -37,14 +36,14 @@ const setup = async () => {
 
 const sampler = new Tone.Sampler({
   urls: {
-    C4: "C4_hand.mp3",
-    D4: "D4_hand.mp3",
-    G4: "G4_hand.mp3",
-    A4: "A4_hand.mp3",
-    E4: "E4_hand.mp3",
-    C5: "C5_hand.mp3",
+    C4: "C4_hammer.mp3",
+    D4: "D4_hammer.mp3",
+    G4: "G4_hammer.mp3",
+    A4: "A4_hammer.mp3",
+    E4: "E4_hammer.mp3",
+    C5: "C5_hammer.mp3",
   },
-  baseUrl: "/",
+  baseUrl: "/samples/",
   // onload: () => {
   //   sampler.triggerAttackRelease(["C5"], "1m");
   // },
@@ -53,13 +52,19 @@ const sampler = new Tone.Sampler({
 // prettier-ignore
 const seq = new Tone.Sequence(
   (time, note) => {
-    synth.triggerAttackRelease(note, 0.8, time)
+    synth.triggerAttackRelease(note, '4n', time)
   },
   [
-    'C4', 'E4', 'G4', 'C4', 'E4', 'G4', 'C4', 'E4', 'G4', 'C4', 'E4', 'G4',
-    'E4', 'G4', 'B3', 'E4', 'G4', 'B3', 'E4', 'G4', 'B3', 'E4', 'G4', 'B3'
-  ]
+    'C3', null, ['D3', null],
+    'C3', 'E4', null, 'A3',
+    'C3', null, 'D4', null,
+    'C3', 'A4', null, null
+  ], '4n'
 ).start(0)
+
+const multiplayer = new Tone.Players({
+  ambient: "/reversed_pad_83bpm_D_minor.wav",
+}).toDestination();
 
 export const Glucophone = () => {
   const onNoteClick = (note) => {
@@ -68,6 +73,7 @@ export const Glucophone = () => {
   return (
     <div>
       <button onClick={setup}>start</button>
+      <button onClick={() => Tone.Transport.stop()}>stop</button>
       <div>
         <div
           className={`${s.note} ${s.big}`}

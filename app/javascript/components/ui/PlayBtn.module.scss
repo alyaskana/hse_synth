@@ -1,0 +1,38 @@
+.button {
+  width: 50px;
+  height: 50px;
+  background: #ff8d8d;
+  box-shadow: 0px 0px 3px 2px #ff8888;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 100ms all ease;
+
+  &.pause {
+    background: #d5aef3;
+    box-shadow: 0px 0px 3px 2px #d2acef;
+  }
+
+  &_icon {
+    box-sizing: border-box;
+    height: 20px;
+    filter: drop-shadow(0px 0px 5px #ffffff);
+
+    border-color: transparent transparent transparent #ffffff;
+    transition: 100ms all ease;
+    will-change: border-width;
+    cursor: pointer;
+
+    .play & {
+      margin-left: 5px;
+      border-style: solid;
+      border-width: 10px 0 10px 15px;
+    }
+
+    .pause & {
+      border-style: double;
+      border-width: 0px 0 0px 15px;
+    }
+  }
+}

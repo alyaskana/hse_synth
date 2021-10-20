@@ -1,0 +1,16 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.note_grid {
+  display: flex;
+  flex-wrap: nowrap;
+}

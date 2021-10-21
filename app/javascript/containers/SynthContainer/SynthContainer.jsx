@@ -67,7 +67,7 @@ export const SynthContainer = () => {
     };
 
     Tone.Transport.bpm.value = 120;
-    Tone.Transport.scheduleRepeat(repeat, "16n");
+    Tone.Transport.scheduleRepeat(repeat, "8n");
   }, []);
 
   const handlePlay = () => {

@@ -10,7 +10,7 @@ import { RandomBtn } from "../../components/ui/RandomBtn";
 
 const NOTES_COUNT = 12;
 const DRUM_NOTES_COUNT = 4;
-const COLUMNS_COUNT = 32;
+const COLUMNS_COUNT = 20;
 
 const setup = () => {
   Tone.start();
